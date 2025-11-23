@@ -349,13 +349,15 @@ public:
 
   template <typename T>
   T & List<T>::Iterator::operator*() const {
-    assert(node_ptr);
+    assert(node_ptr != nullptr);
     return node_ptr->datum;
   }
 
   template <typename T>
   typename List<T>::Iterator & List<T>::Iterator::operator++() {
-    assert(node_ptr);
+    if (node_ptr == nullptr) {
+        return *this;
+    }
     node_ptr = node_ptr->next;
     return *this;
   }
