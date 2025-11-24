@@ -39,9 +39,8 @@ using namespace std;
     return true;
   }
 
-  void TextBuffer::insert(char c) {
+    void TextBuffer::insert(char c) {
     data.insert(cursor, c);
-    ++cursor;
     ++index;
     if (c == '\n') {
         column = 0;
