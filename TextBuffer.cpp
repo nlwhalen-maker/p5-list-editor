@@ -1,4 +1,5 @@
 #include "TextBuffer.hpp"
+#include <cassert>
 using namespace std;
 
   TextBuffer::TextBuffer() 
