@@ -25,9 +25,9 @@ using namespace std;
     if (cursor == data.begin()) {
         return false;
     }
-    char c = *cursor;
     --cursor;
     --index;
+    char c = *cursor;
     if (c == '\n') {
         column = compute_column();
         --row;
@@ -80,7 +80,8 @@ using namespace std;
     assert (new_column >= 0);
     if (new_column > column) {
         while (column < new_column) {
-            if (*cursor == '\n' || cursor == data.end()) break;
+            if (cursor == data.end()) break;
+            if (*cursor == '\n') break;
             forward();
         }
     }
