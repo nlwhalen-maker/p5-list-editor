@@ -264,5 +264,66 @@ TEST(test_iterator_default_ctor_not_equal_begin_or_end) {
     ASSERT_TRUE(it_default != L.end());
 }
 
+TEST(test_assignment_into_nonempty_nodes) {
+    List<int> L1;
+    for (int i = 0; i < 3; ++i) L1.push_back(i);
+    List<int> L2;
+    for (int i = 10; i < 13; ++i) L2.push_back(i);
+    L2 = L1;
+    ASSERT_EQUAL(L2.size(), 3);
+
+    auto a = L1.begin();
+    auto b = L2.begin();
+    for (; a != L1.end(); ++a, ++b) {
+        ASSERT_EQUAL(*a, *b);
+        ASSERT_TRUE(&(*a) != &(*b));
+    }
+    auto it = L2.begin();
+    *it = 999;
+    ASSERT_EQUAL(L1.front(), 0);
+    ASSERT_EQUAL(L2.front(), 999);
+}
+
+TEST(test_assignment_into_empty_list) {
+    List<int> L1;
+    for (int i = 0; i < 4; ++i) L1.push_back(i);
+    List<int> L2;
+    L2 = L1;
+    ASSERT_EQUAL(L2.size(), 4);
+
+    auto a = L1.begin();
+    auto b = L2.begin();
+    for (; a != L1.end(); ++a, ++b) {
+        ASSERT_EQUAL(*a, *b);
+    }
+}
+
+TEST(test_self_assignment) {
+    List<int> L;
+    for (int i = 0; i < 5; ++i) L.push_back(i);
+    L = L;
+    ASSERT_EQUAL(L.size(), 5);
+    int expected = 0;
+    for (auto it = L.begin(); it != L.end(); ++it, ++expected) {
+        ASSERT_EQUAL(*it, expected);
+    }
+}
+
+TEST(test_insert_before_begin) {
+    List<int> L;
+    L.push_back(5);
+    auto it = L.begin();
+    auto inserted = L.insert(it, 99);
+    ASSERT_EQUAL(L.size(), 2);
+    ASSERT_EQUAL(L.front(), 99);
+    ASSERT_EQUAL(*inserted, 99);
+    it = L.begin();
+    ASSERT_EQUAL(*it, 99);
+    ++it;
+    ASSERT_EQUAL(*it, 5);
+    ++it;
+    ASSERT_TRUE(it == L.end());
+}
+
 
 TEST_MAIN()
