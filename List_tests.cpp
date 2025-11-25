@@ -3,6 +3,26 @@
 
 using namespace std;
 
+TEST(test_list_assignment_operator){
+    List<int> L1;
+    for (int i = 0; i < 5; ++i) {
+        L1.push_back(i);
+    }
+
+    List<int> L2;
+    L2 = L1;
+
+    ASSERT_EQUAL(L2.size(), L1.size());
+
+    auto it1 = L1.begin();
+    auto it2 = L2.begin();
+    while (it1 != L1.end() && it2 != L2.end()) {
+        ASSERT_EQUAL(*it1, *it2);
+        ++it1;
+        ++it2;
+    }
+}
+
 TEST(test_list_default_ctor) {
     List<int> empty_list;
     ASSERT_TRUE(empty_list.empty());
