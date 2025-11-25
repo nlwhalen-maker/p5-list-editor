@@ -10,6 +10,9 @@ TEST(test_list_assignment_operator){
     }
 
     List<int> L2;
+    for (int i = 5; i < 10; ++i) {
+        L2.push_back(i);
+    }
     L2 = L1;
 
     ASSERT_EQUAL(L2.size(), L1.size());
