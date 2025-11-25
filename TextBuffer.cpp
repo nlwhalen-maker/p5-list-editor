@@ -55,12 +55,7 @@ using namespace std;
     if (cursor == data.end()) {
         return false;
     }
-    char c = *cursor;
     cursor = data.erase(cursor);
-    if (c == '\n') {
-        column = compute_column();
-        --row;
-    }
     return true;
   }
 
